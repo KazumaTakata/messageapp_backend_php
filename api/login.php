@@ -1,19 +1,24 @@
 <?php 
 
-
-$client = new MongoDB\Client("mongodb://localhost:8899");
+require __DIR__ . '/../db/db.php';
 
 $url = $_SERVER["REQUEST_URI"];
 
-$dsn = 'mysql:dbname=user;port=3307;host=127.0.0.1';
-$user = 'dbuser';
-$password = 'dbpass';
+// try {
+//     $dbsession = Database::getInstance();
+//     $dbsession->insertUser();
 
 
-if ($url == "/login") {
+// } catch (PDOException $e) {
+//     echo 'Connection failed: ' . $e->getMessage();
+// }
+
+
+if ($url == "/login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
-        $dbh = new PDO($dsn, $user, $password);
+        $dbsession = Database::getInstance();
+        $dbsession->insertUser();
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }
