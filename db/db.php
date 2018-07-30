@@ -35,6 +35,19 @@ class Database
         $collection->insertOne($document);
     }
 
+    public function findUser()
+    {
+        $db = $this->client->swiftline;
+        $collection = $db->users;
+        $userQuery = array('name' => 'sample_name');
+
+
+        $users = $collection->find($userQuery);
+        foreach ($users as $user) {
+            var_dump($user);
+        }
+    }
+
 }
 
 

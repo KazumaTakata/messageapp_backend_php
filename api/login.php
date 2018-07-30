@@ -16,8 +16,10 @@ $url = $_SERVER["REQUEST_URI"];
 
 if ($url == "/login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $jsondata = json_decode(file_get_contents('php://input'), true);
     try {
         $dbsession = Database::getInstance();
+        $dbsession->findUser();
         $dbsession->insertUser();
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
